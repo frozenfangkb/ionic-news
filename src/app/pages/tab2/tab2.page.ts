@@ -28,18 +28,12 @@ export class Tab2Page implements OnInit {
 
   segmentChanged(category: string) {
     this.selectedCategory = category;
-    this.updateArticlesByCategory(true);
+    this.updateArticlesByCategory();
   }
 
-  updateArticlesByCategory(resetList: boolean = false): void {
+  updateArticlesByCategory(): void {
     this.newsService
       .getTopHeadlinesByCategory(this.selectedCategory)
-      .subscribe((articles) => {
-        if (resetList) {
-          this.articles = articles;
-        } else {
-          this.articles.push(...articles);
-        }
-      });
+      .subscribe((articles) => (this.articles = [...articles]));
   }
 }
