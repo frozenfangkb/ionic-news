@@ -13,14 +13,22 @@ export class NewsService {
 
   getTopHeadlines(): Observable<Article[]> {
     return this.http
-      .get<NewsResponse>(
-        'https://newsapi.org/v2/top-headlines?country=us&category=business',
-        {
-          params: {
-            apiKey: environment.apiKey,
-          },
-        }
-      )
+      .get<NewsResponse>('https://newsapi.org/v2/top-headlines?country=us', {
+        params: {
+          apiKey: environment.apiKey,
+        },
+      })
+      .pipe(map(({ articles }) => articles));
+  }
+
+  getTopHeadlinesByCategory(category: string): Observable<Article[]> {
+    return this.http
+      .get<NewsResponse>('https://newsapi.org/v2/top-headlines?country=us', {
+        params: {
+          apiKey: environment.apiKey,
+          category,
+        },
+      })
       .pipe(map(({ articles }) => articles));
   }
 }
