@@ -7,6 +7,7 @@ import {
   ActionSheetController,
   Platform,
 } from '@ionic/angular';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-article',
@@ -21,7 +22,8 @@ export class ArticleComponent {
     private iab: InAppBrowser,
     private platform: Platform,
     private actionSheetController: ActionSheetController,
-    private socialSharing: SocialSharing
+    private socialSharing: SocialSharing,
+    private storageService: StorageService
   ) {}
 
   openArticle() {
@@ -69,5 +71,7 @@ export class ArticleComponent {
     await this.socialSharing.share(title, source.name, null, url);
   }
 
-  onToggleFavourite() {}
+  onToggleFavourite() {
+    this.storageService.saveRemoveArticle(this.article);
+  }
 }
