@@ -23,4 +23,15 @@
   </ion-segment>
 
   <app-articles [articles]="articles"></app-articles>
+
+  <ion-infinite-scroll
+    threshold="10%"
+    position="bottom"
+    (ionInfinite)="loadData()"
+  >
+    <ion-infinite-scroll-content
+      loading-spinner="bubbles"
+      loading-text="Loading more articles..."
+    ></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
