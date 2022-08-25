@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { Article } from '../../models/News';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-article',
@@ -10,5 +12,16 @@ export class ArticleComponent {
   @Input() article: Article;
   @Input() index: number;
 
-  constructor() {}
+  constructor(private iab: InAppBrowser, private platform: Platform) {}
+
+  openArticle() {
+    if (this.platform.is('ios') || this.platform.is('android')) {
+      const browser = this.iab.create(this.article.url);
+      browser.show();
+    } else {
+      window.open(this.article.url, '_blank');
+    }
+  }
+
+  onClick() {}
 }
