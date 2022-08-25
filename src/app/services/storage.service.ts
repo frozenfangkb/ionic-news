@@ -39,4 +39,8 @@ export class StorageService {
       this.localArticles = articles || [];
     } catch (error) {}
   }
+
+  articleInFavourites(article: Article): boolean {
+    return !!this.localArticles.find((x) => x.title === article.title);
+  }
 }
